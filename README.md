@@ -1,6 +1,6 @@
 # n8n-nodes-clevertap
 
-> [Velocity BPA Licensing Notice]
+> **[Velocity BPA Licensing Notice]**
 >
 > This n8n node is licensed under the Business Source License 1.1 (BSL 1.1).
 >
@@ -8,368 +8,207 @@
 >
 > For licensing information, visit https://velobpa.com/licensing or contact licensing@velobpa.com.
 
-A comprehensive n8n community node for CleverTap, the all-in-one customer engagement and retention platform. This node enables workflow automation for user profiles, events, campaigns, segments, multi-channel messaging, product catalogs, and analytics.
+This n8n community node provides comprehensive integration with CleverTap's customer engagement platform, enabling automation across 6 core resources. Manage user profiles, track events, execute campaigns, analyze segments, retrieve analytics data, and send personalized messages directly from your n8n workflows.
 
-![n8n Community Node](https://img.shields.io/badge/n8n-community%20node-orange)
-![CleverTap](https://img.shields.io/badge/CleverTap-Integration-red)
+![n8n Community Node](https://img.shields.io/badge/n8n-Community%20Node-blue)
 ![License](https://img.shields.io/badge/license-BSL--1.1-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)
-![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-green)
+![CleverTap](https://img.shields.io/badge/CleverTap-Supported-orange)
+![Customer Engagement](https://img.shields.io/badge/Customer%20Engagement-Automation-green)
+![Marketing](https://img.shields.io/badge/Marketing-Analytics-purple)
 
 ## Features
 
-- **User Profile Management**: Upload, retrieve, update, and delete user profiles with subscription management
-- **Event Tracking**: Track custom events with properties and timestamps, query event data
-- **Campaign Management**: Create and manage multi-channel campaigns (push, email, SMS, WhatsApp)
-- **Push Notifications**: Send targeted push notifications to segments or individual users
-- **Segmentation**: Create static and live segments, estimate sizes, export users
-- **Email Marketing**: Send emails, manage templates, deliver to segments
-- **SMS Messaging**: Send SMS messages with DLT template support for India
-- **WhatsApp Business**: Send text, media, and template messages via WhatsApp
-- **Product Catalog**: Manage product catalogs for personalized recommendations
-- **Analytics & Reports**: Access real-time metrics, trends, funnels, cohorts, and retention data
-- **Multi-Region Support**: India, Singapore, US, EU, Indonesia, Middle East
+- **User Profile Management** - Create, update, retrieve, and delete user profiles with custom properties and segmentation data
+- **Event Tracking** - Record custom events, conversions, and user interactions with detailed attribution and metadata
+- **Campaign Orchestration** - Create, launch, monitor, and optimize multi-channel marketing campaigns programmatically
+- **Segment Analytics** - Build dynamic user segments, analyze cohorts, and track segment performance metrics
+- **Real-time Analytics** - Access engagement metrics, conversion funnels, retention reports, and custom analytics dashboards
+- **Message Delivery** - Send personalized push notifications, emails, SMS, and in-app messages with advanced targeting
+- **Automated Workflows** - Trigger customer journeys based on behavioral events, profile changes, and campaign interactions
+- **Data Synchronization** - Seamlessly sync customer data between CleverTap and other business systems in your n8n workflows
 
 ## Installation
 
 ### Community Nodes (Recommended)
 
-1. Open your n8n instance
-2. Go to **Settings** > **Community Nodes**
-3. Select **Install**
-4. Enter `n8n-nodes-clevertap` and confirm
+1. Open n8n
+2. Go to **Settings** → **Community Nodes**
+3. Click **Install a community node**
+4. Enter `n8n-nodes-clevertap`
+5. Click **Install**
 
 ### Manual Installation
 
 ```bash
+cd ~/.n8n
 npm install n8n-nodes-clevertap
 ```
 
 ### Development Installation
 
 ```bash
-# Clone the repository
 git clone https://github.com/Velocity-BPA/n8n-nodes-clevertap.git
 cd n8n-nodes-clevertap
-
-# Install dependencies
 npm install
-
-# Build the project
 npm run build
-
-# Create symlink to n8n custom nodes directory
 mkdir -p ~/.n8n/custom
 ln -s $(pwd) ~/.n8n/custom/n8n-nodes-clevertap
-
-# Restart n8n
 n8n start
 ```
 
 ## Credentials Setup
 
-Create CleverTap API credentials in n8n with the following parameters:
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| Account ID | String | Yes | CleverTap Account/Project ID |
-| Passcode | Password | Yes | CleverTap API Passcode |
-| Region | Options | Yes | Data center region |
-
-### Getting Your Credentials
-
-1. Log into your [CleverTap Dashboard](https://dashboard.clevertap.com)
-2. Navigate to **Settings** > **Project**
-3. Copy your **Account ID** (Project ID)
-4. Navigate to **Settings** > **Passcode**
-5. Generate or copy your existing **Passcode**
-6. Note your **Region** (visible in your dashboard URL)
-
-### Supported Regions
-
-| Region | API Endpoint |
-|--------|--------------|
-| India | api.clevertap.com |
-| Singapore | sg1.api.clevertap.com |
-| US | us1.api.clevertap.com |
-| EU | eu1.api.clevertap.com |
-| Indonesia | aps3.api.clevertap.com |
-| Middle East | mec1.api.clevertap.com |
+| Field | Description | Required |
+|-------|-------------|----------|
+| Account ID | Your CleverTap account identifier found in dashboard settings | ✅ |
+| Passcode | Account-specific passcode for API authentication | ✅ |
+| Region | Data center region (US1, EU1, AP1, etc.) | ✅ |
+| API Key | Server-side API key for backend operations | ✅ |
 
 ## Resources & Operations
 
-### User Profiles (10 Operations)
+### 1. User Profile
 
 | Operation | Description |
 |-----------|-------------|
-| Upload | Upload user profile data with custom attributes |
-| Get | Retrieve user profile by identity |
-| Get by Email | Retrieve user profile by email address |
-| Get by Phone | Retrieve user profile by phone number |
-| Delete | Delete user profile |
-| Demerge | Separate merged user profiles |
-| Get Count | Count profiles matching a query |
-| Disassociate | Remove device tokens from profile |
-| Subscribe | Update channel subscription preferences |
-| Get Subscription Status | Check subscription status for channels |
+| Create | Create a new user profile with identity and custom properties |
+| Get | Retrieve user profile data by identity or ObjectId |
+| Update | Update existing user profile properties and attributes |
+| Delete | Remove user profile from CleverTap account |
+| Get Events | Fetch event history for a specific user profile |
+| Get Properties | List all custom properties for a user profile |
 
-### Events (7 Operations)
+### 2. Event
 
 | Operation | Description |
 |-----------|-------------|
-| Upload | Track custom events with properties |
-| Get | Retrieve events for a specific user |
-| Get Many | Query events with filters and date range |
-| Get Count | Count events with optional grouping |
-| Get Property Values | Extract unique values for event properties |
-| Get Top Events | List most frequent events |
-| Get Timeline | User event history with pagination |
+| Record | Record custom events with properties and user attribution |
+| Get History | Retrieve event history with filtering and date ranges |
+| Get Details | Get detailed information about a specific event |
+| Batch Record | Upload multiple events in a single API call |
+| Get Schema | Retrieve event schema and property definitions |
 
-### Campaigns (8 Operations)
+### 3. Campaign
 
 | Operation | Description |
 |-----------|-------------|
-| Create | Create new campaign |
-| Create Targeted | Create campaign with targeting rules |
-| Create Control Group | Create A/B test with control group |
-| Get | Retrieve campaign details |
-| Get Many | List all campaigns |
-| Get Stats | Get campaign performance statistics |
-| Get Report | Generate detailed campaign report |
-| Stop | Stop a running campaign |
+| Create | Create new email, push, SMS, or in-app campaigns |
+| Get | Retrieve campaign details and configuration |
+| Update | Modify campaign settings and targeting parameters |
+| Launch | Start campaign execution and message delivery |
+| Pause | Temporarily pause active campaign |
+| Stop | Permanently stop campaign execution |
+| Get Results | Fetch campaign performance metrics and analytics |
+| Get List | List all campaigns with filtering options |
 
-### Push Notifications (7 Operations)
-
-| Operation | Description |
-|-----------|-------------|
-| Send | Send push notification |
-| Send to Segment | Push to an entire segment |
-| Send to Identity | Push to specific user(s) |
-| Create Web Push | Create web push notification |
-| Create Mobile Push | Create Android/iOS push |
-| Schedule | Schedule push for future delivery |
-| Cancel | Cancel scheduled push |
-
-### Segments (7 Operations)
+### 4. Segment
 
 | Operation | Description |
 |-----------|-------------|
-| Create | Create static or live segment |
-| Get | Retrieve segment by ID |
-| Get Many | List all segments |
-| Get Users | Get users in a segment |
-| Estimate | Estimate segment size |
-| Delete | Delete a segment |
-| Download Users | Export segment users to file |
+| Create | Create dynamic user segments with behavioral criteria |
+| Get | Retrieve segment configuration and user count |
+| Update | Modify segment definition and targeting rules |
+| Delete | Remove segment from account |
+| Get Users | List users within a specific segment |
+| Get List | Retrieve all segments with metadata |
+| Estimate Size | Calculate estimated segment size before creation |
 
-### Email (7 Operations)
-
-| Operation | Description |
-|-----------|-------------|
-| Send | Send email to users |
-| Send to Segment | Email entire segment |
-| Send Template | Send using saved template |
-| Get Templates | List email templates |
-| Create Template | Create new template |
-| Update Template | Modify existing template |
-| Delete Template | Remove template |
-
-### SMS (5 Operations)
+### 5. Analytics
 
 | Operation | Description |
 |-----------|-------------|
-| Send | Send SMS message |
-| Send to Segment | SMS to entire segment |
-| Get Providers | List configured SMS providers |
-| Create Template | Create SMS template |
-| Get Templates | List SMS templates |
+| Get Counts | Retrieve user counts and growth metrics |
+| Get Events Report | Generate custom event analytics reports |
+| Get Funnel | Analyze conversion funnels and drop-off points |
+| Get Retention | Calculate user retention cohort analysis |
+| Get Trends | Track metric trends over time periods |
+| Get Real Time | Access real-time engagement metrics |
 
-### WhatsApp (6 Operations)
-
-| Operation | Description |
-|-----------|-------------|
-| Send | Send WhatsApp message |
-| Send Template | Send HSM template message |
-| Send Media | Send image/document/video |
-| Get Templates | List WhatsApp templates |
-| Create Template | Create new template |
-| Get Conversations | Retrieve conversation threads |
-
-### Product Catalog (8 Operations)
+### 6. Message
 
 | Operation | Description |
 |-----------|-------------|
-| Upload | Batch upload catalog items |
-| Get | Retrieve single catalog item |
-| Get Many | List catalog items with filters |
-| Update | Update catalog item |
-| Delete | Remove catalog item |
-| Create Catalog | Create new product catalog |
-| Get Catalogs | List all catalogs |
-| Delete Catalog | Remove entire catalog |
-
-### Reports (8 Operations)
-
-| Operation | Description |
-|-----------|-------------|
-| Get Real-Time | Live metrics and KPIs |
-| Get Trends | Event trends with daily breakdown |
-| Get Message Report | Multi-channel messaging stats |
-| Get Revenue Report | Revenue analytics |
-| Get Uninstall Report | App uninstall tracking |
-| Get Funnel Report | Conversion funnel analysis |
-| Get Cohort Report | Cohort analysis by time period |
-| Get Retention Report | User retention metrics |
+| Send Push | Send targeted push notifications to user segments |
+| Send Email | Deliver personalized email campaigns |
+| Send SMS | Send SMS messages with tracking and delivery status |
+| Send In-App | Trigger in-app messages and notifications |
+| Get Status | Check delivery status of sent messages |
+| Get Templates | List available message templates |
 
 ## Usage Examples
 
-### Upload User Profile
-
-```json
+```javascript
+// Create user profile with custom properties
 {
-  "identity": "user-12345",
+  "resource": "userProfile",
+  "operation": "create",
+  "identity": "user@example.com",
   "profileData": {
     "Name": "John Doe",
-    "Email": "john@example.com",
-    "Phone": "+12025551234",
-    "Gender": "M",
-    "DOB": "15-05-1990",
-    "plan": "premium",
-    "signupDate": "2024-01-15"
+    "Email": "user@example.com",
+    "Phone": "+1234567890",
+    "Customer Type": "Premium",
+    "Last Purchase": "2024-01-15"
   }
 }
-```
 
-### Track Event
-
-```json
+// Record purchase event with revenue tracking
 {
-  "identity": "user-12345",
-  "eventName": "Product Viewed",
+  "resource": "event",
+  "operation": "record",
+  "identity": "user@example.com",
+  "eventName": "Product Purchased",
   "eventData": {
-    "product_id": "SKU-789",
-    "product_name": "Wireless Headphones",
-    "price": 99.99,
-    "category": "Electronics"
+    "Product Name": "Premium Subscription",
+    "Amount": 99.99,
+    "Currency": "USD",
+    "Category": "Subscription"
   }
 }
-```
 
-### Create Push Campaign
-
-```json
+// Create targeted email campaign
 {
-  "name": "Flash Sale Alert",
-  "campaignType": "mobile_push",
-  "title": "🔥 Flash Sale - 50% Off!",
-  "body": "Limited time offer on your favorite items",
-  "deepLink": "myapp://sales/flash",
-  "segment": "active_shoppers"
+  "resource": "campaign",
+  "operation": "create",
+  "campaignType": "email",
+  "name": "Welcome Series - Day 1",
+  "subject": "Welcome to our platform!",
+  "content": "<html>Welcome {{Name}}! Get started today.</html>",
+  "segment": "new_users",
+  "schedule": "2024-02-01T10:00:00Z"
+}
+
+// Send personalized push notification
+{
+  "resource": "message",
+  "operation": "sendPush",
+  "to": "user_segment_id",
+  "title": "Special offer just for you!",
+  "body": "Hi {{Name}}, enjoy 20% off your next purchase",
+  "deepLink": "app://offers/special20"
 }
 ```
-
-### Send WhatsApp Template
-
-```json
-{
-  "to": ["+12025551234"],
-  "templateName": "order_confirmation",
-  "templateParams": {
-    "order_id": "ORD-12345",
-    "amount": "$149.99",
-    "delivery_date": "March 20, 2024"
-  }
-}
-```
-
-## CleverTap Concepts
-
-### User Identity
-
-CleverTap uses a unique identity string (max 1024 characters) to identify users across devices. Common identity strategies include email addresses, user IDs, or custom identifiers.
-
-### Event Tracking
-
-Events represent user actions with optional properties. Events power segmentation, campaigns, and analytics. Timestamps can be current or historical for data imports.
-
-### Profile vs System Properties
-
-- **System Properties**: Reserved fields like Name, Email, Phone, Gender, DOB
-- **Custom Properties**: User-defined attributes for personalization
-
-### Subscription Channels
-
-Users can subscribe/unsubscribe from channels independently (email, push, SMS, WhatsApp), enabling compliance with preferences and regulations.
-
-### Segments
-
-- **Static Segments**: Fixed user lists, updated manually
-- **Live Segments**: Dynamic segments with real-time membership updates
-
-## Rate Limits
-
-| Endpoint Type | Rate Limit |
-|---------------|------------|
-| Upload (profiles/events) | 500 requests/second |
-| Campaigns | 3 requests/second |
-| Query endpoints | 10 requests/second |
-| Export endpoints | 1 request/second |
-
-### Batch Limits
-
-- Profile upload: 1000 records per request
-- Event upload: 1000 records per request
-- Campaign targets: 100 identities per request
 
 ## Error Handling
 
-The node handles common CleverTap API errors:
-
-| Code | Description | Resolution |
-|------|-------------|------------|
-| 400 | Bad Request | Check request format and parameters |
-| 401 | Unauthorized | Verify Account ID and Passcode |
-| 403 | Forbidden | Check rate limits or feature access |
-| 404 | Not Found | Verify resource exists |
-| 429 | Rate Limited | Reduce request frequency |
-| 500 | Server Error | Retry with exponential backoff |
-
-## Security Best Practices
-
-1. **Never expose credentials** in workflows or logs
-2. **Use environment variables** for sensitive data
-3. **Validate user input** before sending to API
-4. **Implement rate limiting** in high-volume workflows
-5. **Use HTTPS** for all webhook endpoints
-6. **Regularly rotate** API passcodes
-7. **Monitor API usage** for anomalies
+| Error | Description | Solution |
+|-------|-------------|----------|
+| 401 Unauthorized | Invalid API credentials or expired token | Verify Account ID, Passcode, and API Key in credentials |
+| 403 Forbidden | Insufficient permissions for operation | Check account permissions and API key scope |
+| 404 Not Found | Resource (user, campaign, segment) not found | Verify resource ID exists and is accessible |
+| 422 Validation Error | Invalid data format or missing required fields | Review API documentation for required fields |
+| 429 Rate Limited | Too many API requests in time window | Implement exponential backoff or reduce request frequency |
+| 500 Server Error | CleverTap service temporarily unavailable | Retry request after delay or check CleverTap status |
 
 ## Development
 
 ```bash
-# Install dependencies
 npm install
-
-# Build the project
 npm run build
-
-# Run in watch mode
-npm run dev
-
-# Run linting
-npm run lint
-
-# Fix linting issues
-npm run lint:fix
-
-# Run tests
 npm test
-
-# Run tests with coverage
-npm run test:coverage
-
-# Format code
-npm run format
+npm run lint
+npm run dev
 ```
 
 ## Author
@@ -383,11 +222,9 @@ npm run format
 This n8n community node is licensed under the **Business Source License 1.1**.
 
 ### Free Use
-
 Permitted for personal, educational, research, and internal business use.
 
 ### Commercial Use
-
 Use of this node within any SaaS, PaaS, hosted platform, managed service, or paid automation offering requires a commercial license.
 
 For licensing inquiries: **licensing@velobpa.com**
@@ -396,24 +233,16 @@ See [LICENSE](LICENSE), [COMMERCIAL_LICENSE.md](COMMERCIAL_LICENSE.md), and [LIC
 
 ## Contributing
 
-Contributions are welcome! Please follow these steps:
+Contributions are welcome! Please ensure:
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-Please ensure your code passes linting and tests before submitting.
+1. Code follows existing style conventions
+2. All tests pass (`npm test`)
+3. Linting passes (`npm run lint`)
+4. Documentation is updated for new features
+5. Commit messages are descriptive
 
 ## Support
 
-- **Documentation**: [CleverTap Developer Docs](https://developer.clevertap.com)
 - **Issues**: [GitHub Issues](https://github.com/Velocity-BPA/n8n-nodes-clevertap/issues)
-- **n8n Community**: [n8n Community Forum](https://community.n8n.io)
-
-## Acknowledgments
-
-- [CleverTap](https://clevertap.com) for their comprehensive customer engagement platform
-- [n8n](https://n8n.io) for the workflow automation framework
-- The open-source community for continuous inspiration
+- **CleverTap API Documentation**: [CleverTap REST API](https://developer.clevertap.com/docs/server-api-reference)
+- **CleverTap Community**: [CleverTap Support](https://support.clevertap.com/)
