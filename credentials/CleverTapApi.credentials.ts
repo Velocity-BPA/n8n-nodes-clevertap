@@ -1,39 +1,34 @@
-import {
-	ICredentialType,
-	INodeProperties,
-} from 'n8n-workflow';
+import { ICredentialType, INodeProperties } from 'n8n-workflow';
 
 export class CleverTapApi implements ICredentialType {
 	name = 'cleverTapApi';
 	displayName = 'CleverTap API';
-	documentationUrl = 'https://developer.clevertap.com/';
+	documentationUrl = 'https://developer.clevertap.com/docs';
 	properties: INodeProperties[] = [
 		{
 			displayName: 'Account ID',
 			name: 'accountId',
 			type: 'string',
-			default: '',
 			required: true,
-			description: 'Your CleverTap Account ID from the dashboard under Settings > API Credentials',
+			default: '',
+			description: 'Your CleverTap Account ID found in Settings > API Keys',
 		},
 		{
-			displayName: 'Passcode',
+			displayName: 'API Passcode',
 			name: 'passcode',
 			type: 'string',
-			typeOptions: {
-				password: true,
-			},
-			default: '',
+			typeOptions: { password: true },
 			required: true,
-			description: 'Your CleverTap Account Passcode from the dashboard under Settings > API Credentials',
+			default: '',
+			description: 'Your CleverTap API Passcode found in Settings > API Keys',
 		},
 		{
 			displayName: 'API Base URL',
 			name: 'baseUrl',
 			type: 'string',
-			default: 'https://api.clevertap.com/1',
 			required: true,
-			description: 'The base URL for the CleverTap API',
+			default: 'https://api.clevertap.com/1',
+			description: 'The base URL for CleverTap API requests',
 		},
 	];
 }
