@@ -8,25 +8,25 @@
 >
 > For licensing information, visit https://velobpa.com/licensing or contact licensing@velobpa.com.
 
-This n8n community node provides comprehensive integration with CleverTap's customer engagement platform, enabling automation across 6 core resources. Manage user profiles, track events, execute campaigns, analyze segments, retrieve analytics data, and send personalized messages directly from your n8n workflows.
+A comprehensive n8n community node for CleverTap's customer engagement and analytics platform. This node provides access to 5 core resources including profiles, events, campaigns, segments, and reports, enabling complete automation of user data management, behavioral tracking, targeted messaging campaigns, audience segmentation, and performance analytics within your n8n workflows.
 
 ![n8n Community Node](https://img.shields.io/badge/n8n-Community%20Node-blue)
 ![License](https://img.shields.io/badge/license-BSL--1.1-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)
-![CleverTap](https://img.shields.io/badge/CleverTap-Supported-orange)
-![Customer Engagement](https://img.shields.io/badge/Customer%20Engagement-Automation-green)
-![Marketing](https://img.shields.io/badge/Marketing-Analytics-purple)
+![Customer Engagement](https://img.shields.io/badge/Customer%20Engagement-Platform-orange)
+![Mobile Analytics](https://img.shields.io/badge/Mobile%20Analytics-API-green)
+![Marketing Automation](https://img.shields.io/badge/Marketing%20Automation-Ready-purple)
 
 ## Features
 
-- **User Profile Management** - Create, update, retrieve, and delete user profiles with custom properties and segmentation data
-- **Event Tracking** - Record custom events, conversions, and user interactions with detailed attribution and metadata
-- **Campaign Orchestration** - Create, launch, monitor, and optimize multi-channel marketing campaigns programmatically
-- **Segment Analytics** - Build dynamic user segments, analyze cohorts, and track segment performance metrics
-- **Real-time Analytics** - Access engagement metrics, conversion funnels, retention reports, and custom analytics dashboards
-- **Message Delivery** - Send personalized push notifications, emails, SMS, and in-app messages with advanced targeting
-- **Automated Workflows** - Trigger customer journeys based on behavioral events, profile changes, and campaign interactions
-- **Data Synchronization** - Seamlessly sync customer data between CleverTap and other business systems in your n8n workflows
+- **Profile Management** - Create, update, retrieve, and delete user profiles with custom properties and behavioral data
+- **Event Tracking** - Record and query user events, custom actions, and behavioral analytics data
+- **Campaign Operations** - Create, manage, and monitor push notifications, email campaigns, and in-app messaging
+- **Audience Segmentation** - Build, update, and manage user segments based on behavior, demographics, and custom criteria
+- **Analytics & Reporting** - Generate performance reports, engagement metrics, and conversion analytics
+- **Real-time Data Sync** - Synchronize user data and events in real-time with CleverTap's platform
+- **Batch Operations** - Support for bulk profile updates and mass event uploads for efficient data processing
+- **Advanced Filtering** - Query profiles and events with complex filters, date ranges, and custom parameters
 
 ## Installation
 
@@ -61,132 +61,132 @@ n8n start
 
 | Field | Description | Required |
 |-------|-------------|----------|
-| Account ID | Your CleverTap account identifier found in dashboard settings | ✅ |
-| Passcode | Account-specific passcode for API authentication | ✅ |
-| Region | Data center region (US1, EU1, AP1, etc.) | ✅ |
-| API Key | Server-side API key for backend operations | ✅ |
+| API Key | Your CleverTap API key from the dashboard settings | Yes |
+| Account ID | CleverTap account identifier for API requests | Yes |
+| Region | Data center region (US, EU, Asia Pacific) | Yes |
+| Passcode | Additional security passcode for API authentication | Yes |
 
 ## Resources & Operations
 
-### 1. User Profile
+### 1. Profile
 
 | Operation | Description |
 |-----------|-------------|
-| Create | Create a new user profile with identity and custom properties |
-| Get | Retrieve user profile data by identity or ObjectId |
-| Update | Update existing user profile properties and attributes |
-| Delete | Remove user profile from CleverTap account |
-| Get Events | Fetch event history for a specific user profile |
-| Get Properties | List all custom properties for a user profile |
+| Create | Create a new user profile with custom properties and initial data |
+| Update | Update existing profile information, properties, and behavioral data |
+| Get | Retrieve profile details by user ID or email address |
+| Delete | Remove a user profile and all associated data |
+| Upload | Bulk upload multiple profiles from CSV or JSON data |
+| Get Events | Retrieve all events associated with a specific profile |
+| Get Properties | Fetch custom properties and their values for a profile |
 
 ### 2. Event
 
 | Operation | Description |
 |-----------|-------------|
-| Record | Record custom events with properties and user attribution |
-| Get History | Retrieve event history with filtering and date ranges |
-| Get Details | Get detailed information about a specific event |
-| Batch Record | Upload multiple events in a single API call |
-| Get Schema | Retrieve event schema and property definitions |
+| Record | Track a single custom event with properties and user context |
+| Upload | Bulk upload multiple events for processing and analytics |
+| Query | Search and filter events by date range, user, or custom criteria |
+| Get Details | Retrieve detailed information about a specific event |
+| Get Analytics | Generate analytics and insights for event performance |
+| Get Funnel | Analyze event funnels and conversion rates |
 
 ### 3. Campaign
 
 | Operation | Description |
 |-----------|-------------|
-| Create | Create new email, push, SMS, or in-app campaigns |
-| Get | Retrieve campaign details and configuration |
-| Update | Modify campaign settings and targeting parameters |
-| Launch | Start campaign execution and message delivery |
-| Pause | Temporarily pause active campaign |
-| Stop | Permanently stop campaign execution |
-| Get Results | Fetch campaign performance metrics and analytics |
-| Get List | List all campaigns with filtering options |
+| Create | Create new push notification, email, or in-app message campaigns |
+| Update | Modify campaign content, targeting, and scheduling parameters |
+| Get | Retrieve campaign details, status, and configuration |
+| Delete | Remove campaigns and stop active messaging |
+| Send | Trigger immediate campaign delivery to targeted segments |
+| Schedule | Set up automated campaign delivery with timing rules |
+| Get Stats | Fetch campaign performance metrics and engagement data |
+| Stop | Halt active campaigns and prevent further message delivery |
 
 ### 4. Segment
 
 | Operation | Description |
 |-----------|-------------|
-| Create | Create dynamic user segments with behavioral criteria |
-| Get | Retrieve segment configuration and user count |
-| Update | Modify segment definition and targeting rules |
-| Delete | Remove segment from account |
-| Get Users | List users within a specific segment |
-| Get List | Retrieve all segments with metadata |
-| Estimate Size | Calculate estimated segment size before creation |
+| Create | Build new user segments with behavioral and demographic criteria |
+| Update | Modify segment rules, conditions, and targeting parameters |
+| Get | Retrieve segment details, size, and member criteria |
+| Delete | Remove segments and associated targeting rules |
+| Get Users | List all users belonging to a specific segment |
+| Get Stats | Analyze segment performance and user engagement metrics |
 
-### 5. Analytics
-
-| Operation | Description |
-|-----------|-------------|
-| Get Counts | Retrieve user counts and growth metrics |
-| Get Events Report | Generate custom event analytics reports |
-| Get Funnel | Analyze conversion funnels and drop-off points |
-| Get Retention | Calculate user retention cohort analysis |
-| Get Trends | Track metric trends over time periods |
-| Get Real Time | Access real-time engagement metrics |
-
-### 6. Message
+### 5. Report
 
 | Operation | Description |
 |-----------|-------------|
-| Send Push | Send targeted push notifications to user segments |
-| Send Email | Deliver personalized email campaigns |
-| Send SMS | Send SMS messages with tracking and delivery status |
-| Send In-App | Trigger in-app messages and notifications |
-| Get Status | Check delivery status of sent messages |
-| Get Templates | List available message templates |
+| Generate | Create custom reports with specified metrics and date ranges |
+| Get | Retrieve existing report data and analytics insights |
+| Download | Export report data in various formats (CSV, JSON, PDF) |
+| Schedule | Set up automated recurring reports with email delivery |
+| Get Metrics | Fetch key performance indicators and engagement statistics |
+| Get Retention | Analyze user retention rates and cohort performance |
+| Get Conversion | Generate conversion funnel reports and optimization insights |
 
 ## Usage Examples
 
 ```javascript
-// Create user profile with custom properties
+// Create a new user profile with custom properties
 {
-  "resource": "userProfile",
-  "operation": "create",
-  "identity": "user@example.com",
+  "identity": "user123@example.com",
   "profileData": {
     "Name": "John Doe",
-    "Email": "user@example.com",
+    "Email": "user123@example.com",
     "Phone": "+1234567890",
-    "Customer Type": "Premium",
-    "Last Purchase": "2024-01-15"
+    "Gender": "M",
+    "Age": 28,
+    "Custom_Property": "Premium User"
   }
 }
+```
 
-// Record purchase event with revenue tracking
+```javascript
+// Track a custom purchase event
 {
-  "resource": "event",
-  "operation": "record",
-  "identity": "user@example.com",
+  "identity": "user123@example.com",
   "eventName": "Product Purchased",
   "eventData": {
     "Product Name": "Premium Subscription",
     "Amount": 99.99,
     "Currency": "USD",
-    "Category": "Subscription"
+    "Category": "Subscription",
+    "Timestamp": "2024-01-15T10:30:00Z"
   }
 }
+```
 
-// Create targeted email campaign
+```javascript
+// Create a targeted push notification campaign
 {
-  "resource": "campaign",
-  "operation": "create",
-  "campaignType": "email",
-  "name": "Welcome Series - Day 1",
-  "subject": "Welcome to our platform!",
-  "content": "<html>Welcome {{Name}}! Get started today.</html>",
-  "segment": "new_users",
-  "schedule": "2024-02-01T10:00:00Z"
+  "campaignName": "Flash Sale Alert",
+  "messageContent": {
+    "title": "50% Off Everything!",
+    "body": "Limited time offer - Don't miss out!",
+    "action_url": "https://example.com/sale"
+  },
+  "targetSegment": "Premium Users",
+  "scheduling": {
+    "send_time": "2024-01-20T14:00:00Z",
+    "timezone": "America/New_York"
+  }
 }
+```
 
-// Send personalized push notification
+```javascript
+// Generate a conversion funnel report
 {
-  "resource": "message",
-  "operation": "sendPush",
-  "to": "user_segment_id",
-  "title": "Special offer just for you!",
-  "body": "Hi {{Name}}, enjoy 20% off your next purchase",
-  "deepLink": "app://offers/special20"
+  "reportType": "conversion_funnel",
+  "events": ["App Opened", "Product Viewed", "Add to Cart", "Purchase"],
+  "dateRange": {
+    "from": "2024-01-01",
+    "to": "2024-01-31"
+  },
+  "segmentFilter": "Mobile Users",
+  "granularity": "daily"
 }
 ```
 
@@ -194,12 +194,12 @@ n8n start
 
 | Error | Description | Solution |
 |-------|-------------|----------|
-| 401 Unauthorized | Invalid API credentials or expired token | Verify Account ID, Passcode, and API Key in credentials |
-| 403 Forbidden | Insufficient permissions for operation | Check account permissions and API key scope |
-| 404 Not Found | Resource (user, campaign, segment) not found | Verify resource ID exists and is accessible |
-| 422 Validation Error | Invalid data format or missing required fields | Review API documentation for required fields |
-| 429 Rate Limited | Too many API requests in time window | Implement exponential backoff or reduce request frequency |
-| 500 Server Error | CleverTap service temporarily unavailable | Retry request after delay or check CleverTap status |
+| 401 Unauthorized | Invalid API credentials or expired authentication | Verify API key, account ID, and passcode in credentials |
+| 403 Forbidden | Insufficient permissions for requested operation | Check account permissions and API access levels |
+| 404 Not Found | Profile, campaign, or segment does not exist | Verify resource IDs and check if resource was deleted |
+| 429 Rate Limited | API request limit exceeded for current time period | Implement request throttling and retry with exponential backoff |
+| 400 Bad Request | Invalid data format or missing required fields | Validate input data structure and required parameters |
+| 500 Server Error | CleverTap service temporarily unavailable | Retry request after delay or check CleverTap status page |
 
 ## Development
 
@@ -244,5 +244,5 @@ Contributions are welcome! Please ensure:
 ## Support
 
 - **Issues**: [GitHub Issues](https://github.com/Velocity-BPA/n8n-nodes-clevertap/issues)
-- **CleverTap API Documentation**: [CleverTap REST API](https://developer.clevertap.com/docs/server-api-reference)
-- **CleverTap Community**: [CleverTap Support](https://support.clevertap.com/)
+- **CleverTap API Documentation**: [CleverTap REST API Guide](https://developer.clevertap.com/docs/api)
+- **CleverTap Community**: [CleverTap Support Portal](https://support.clevertap.com)
